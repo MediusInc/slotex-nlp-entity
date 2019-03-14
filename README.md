@@ -1,0 +1,3 @@
+# SloTex NLP Entity
+
+## Releasing

@@ -1,0 +1,26 @@
+# Exclude project specific files
+.idea/*
+
+# File-based project format
+*.iws
+*.iml
+
+# IntelliJ
+out/*
+target/*
+*.iml
+
+# logs
+logs/*
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+# root Dockerfile
+/Dockerfile
+/conf
+
+# release plugin
+pom.xml.*
+release.properties
+/settings.xml
