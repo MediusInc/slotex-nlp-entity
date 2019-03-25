@@ -4,24 +4,56 @@
 
     <groupId>si.slotex.nlp</groupId>
     <artifactId>slotex-nlp-entity</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.1.0.RELEASE</version>
     </parent>
 
+    <name>SloTex NLP Entity</name>
+    <description>A library which contains POJOs for representation of all the objects stored in the database.</description>
+    <url>http://www.slotex.si</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Tadej Justin</name>
+            <email>tadej.justin@medius.si</email>
+            <organization>Medius d.o.o.</organization>
+            <organizationUrl>http://www.medius.si</organizationUrl>
+        </developer>
+        <developer>
+            <name>Mitja J. Kotnik</name>
+            <email>mitja.kotnik@medius.si</email>
+            <organization>Medius d.o.o.</organization>
+            <organizationUrl>http://www.medius.si</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/MediusInc/slotex-nlp-entity.git</connection>
+        <developerConnection>scm:git:ssh://github.com:MediusInc/slotex-nlp-entity.git</developerConnection>
+        <url>https://github.com/MediusInc/slotex-nlp-entity/tree/master</url>
+    </scm>
+
     <distributionManagement>
-        <!-- TODO: plese change this dynamically in .gitlab-ci -->
         <snapshotRepository>
-            <id>snapshots</id>
-            <url>http://nexus:8081/nexus/content/repositories/snapshots</url>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
         <repository>
-            <id>releases</id>
-            <url>http://nexus:8081/nexus/content/repositories/releases</url>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -32,4 +64,48 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
