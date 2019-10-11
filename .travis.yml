@@ -1,0 +1,19 @@
+sudo: required
+language: java
+dist: trusty
+jdk: oraclejdk8
+install: mvn dependency:resolve
+cache:
+  directories:
+  - "$HOME/bin"
+  - "$HOME/.m2"
+notifications:
+  slack:
+    secure: He0Xo5syp95ScHtmZdpUXAk5NtQS9VtFitaAmLpQMFKXblqr7KnigR9ZaWsGDvXbPHjHHfWB8DOcdysegjSLAcmr7A8kDlJnh1OujCyPpNoUcZHw+2S49BgjZX6/s1esFM308e57kEXnuMH/Kp3KxF4ofJwNEYaivoIzznRtw1cP3cT2jin9wxg7srVV89QzzY5PStpe3g5ry/SKBzxP80eatz1OjfJiM91jkTijoCBG2PWomGwhY5XkPBCMHqN6no8/Ag/MwUkK2gaMOmKHm1K1j0prAk8sxSmEUjTgobFWrieJHlUtSxfd9qMIp7R0RkFZ3aOMwf41leRv0pBzxCkm6C7xJAMvAVPmgsXGrUiKuM7FIjfvPXaBuEqIVr8jWpECARSRHquDTuuQXpd5SP79kmXQqMVXN/jW6uTEu9on1k7kUX0FYylWp6LeHrSQx5B5fY4YM8bWf+0xIKr2FdiSpnkV4Ea1OAcKj1LkHGEOPhL3ApWMw/pJ0TE2gxmV8hydKExCOV2kcgIWMAyuHvnDEGmkH/MidZ4TnR65yrq8tjB6I+wPG88cTgFwX/YA3efOMSf+KecqK0A1jRAFrJf5bqVhr1QWLG/2Or+H4csqvzV/cK2P4yPzo0rdeQFmJRDCA+IeA/6X3woRIYSGt/SzeMnO4bAMm95/5NaYEtE=
+  email: false
+addons:
+  sonarcloud:
+    organization: mediusinc
+script:
+- mvn clean verify -P sonar -Dsonar.login=$SONAR_TOKEN
+- mvn package
