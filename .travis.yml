@@ -2,6 +2,9 @@ sudo: required
 language: java
 dist: trusty
 jdk: oraclejdk8
+before_install:
+  - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
+  - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
 install: mvn dependency:resolve
 cache:
   directories:
@@ -14,6 +17,11 @@ notifications:
 addons:
   sonarcloud:
     organization: mediusinc
+
+
 script:
-- mvn clean verify -P sonar -Dsonar.login=$SONAR_TOKEN
-- mvn package
+  - mvn clean package
+  - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then mvn sonar:sonar -P sonar -Dsonar.login=$SONAR_TOKEN -Dsonar.pullrequest.branch=${TRAVIS_PULL_REQUEST_BRANCH} -Dsonar.pullrequest.base=${TRAVIS_BRANCH} -Dsonar.pullrequest.key=${TRAVIS_PULL_REQUEST}; fi
+  - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then mvn sonar:sonar -P sonar -Dsonar.login=$SONAR_TOKEN -Dsonar.branch.name=${TRAVIS_BRANCH}; fi
+  - mvn deploy --settings .travis/settings.xml
+  
