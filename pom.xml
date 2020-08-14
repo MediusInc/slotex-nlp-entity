@@ -91,10 +91,9 @@
         <plugin>
           <groupId>org.sonarsource.scanner.maven</groupId>
           <artifactId>sonar-maven-plugin</artifactId>
-          <version>3.5.0.1254</version>
+          <version>3.7.0.1746</version>
           <executions>
             <execution>
-              <phase>verify</phase>
               <goals>
                 <goal>sonar</goal>
               </goals>
@@ -169,6 +168,9 @@
             <goals>
               <goal>sign</goal>
             </goals>
+            <configuration>
+              <passphrase>${env.GPG_PASSPHRASE}</passphrase>
+            </configuration>
           </execution>
         </executions>
       </plugin>
